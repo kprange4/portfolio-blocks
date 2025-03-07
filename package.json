@@ -17,6 +17,8 @@
 		"new-block": "(cd ./src/blocks && npx @wordpress/create-block --no-plugin --namespace=kn)"
 	},
 	"devDependencies": {
+		"@wordpress/block-editor": "^14.14.0",
+		"@wordpress/components": "^29.5.0",
 		"@wordpress/env": "^10.19.0",
 		"@wordpress/scripts": "^30.12.0"
 	}
