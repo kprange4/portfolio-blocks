@@ -25,6 +25,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @see https://developer.wordpress.org/reference/functions/register_block_type/
  */
 function kn_kn_portfolio_blocks_block_init() {
-	register_block_type( __DIR__ . '/build/kn-portfolio-blocks' );
+	register_block_type( __DIR__ . '/build/blocks/kn-portfolio-blocks' );
+	register_block_type( __DIR__ . '/build/blocks/portfolio-projects' );
+	register_block_type( __DIR__ . '/build/blocks/project-list' );
 }
 add_action( 'init', 'kn_kn_portfolio_blocks_block_init' );
