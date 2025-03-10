@@ -3,7 +3,7 @@
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
  */
-import { __ } from '@wordpress/i18n';
+import {__} from '@wordpress/i18n';
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -11,7 +11,7 @@ import { __ } from '@wordpress/i18n';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import { useBlockProps } from '@wordpress/block-editor';
+import {useBlockProps} from '@wordpress/block-editor';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -20,7 +20,7 @@ import { useBlockProps } from '@wordpress/block-editor';
  * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
  */
 import './editor.scss';
-import metadata from'./block.json';
+import metadata from './block.json';
 import BlockSettings from "./BlockSettings";
 import ServerSideRender from '@wordpress/server-side-render';
 
@@ -34,20 +34,23 @@ import ServerSideRender from '@wordpress/server-side-render';
  */
 export default function Edit({attributes, setAttributes}) {
 	return (
-		<div { ...useBlockProps() }>
-			<BlockSettings attributes={attributes} setAttributes={setAttributes} />
+		<div {...useBlockProps()}>
+			<BlockSettings attributes={attributes} setAttributes={setAttributes}/>
 			<div className="project-card">
 				<div className="project-card-inner">
-					<div className="project-card-img">
-						<img src="https://2.gravatar.com/avatar/ea8b076b398ee48b71cfaecf898c582b?s=250&d=mm&r=g"/>
+					<div>
+						<img className="project-card-img" src="https://placehold.co/280x140"/>
 					</div>
 					<div className="project-card-info" style={{backgroundColor: attributes.cardColor}}>
-						<h3 className="project-title" style={{color: attributes.headingColor}}>Red Forman</h3>
-						<div className="project-description" style={{color: attributes.textColor}}>Manager</div>
+						<div>
+							<h3 className="project-title" style={{color: attributes.headingColor}}>Project Name</h3>
+							<div className="project-description" style={{color: attributes.textColor}}>Short
+								Description
+							</div>
+						</div>
+						<div className="project-card-arrow"></div>
 					</div>
-					<div className="project-card-arrow">
 
-					</div>
 				</div>
 			</div>
 			<ServerSideRender

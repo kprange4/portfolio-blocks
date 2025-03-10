@@ -9,4 +9,46 @@
 	padding: 10px;
 	display: flex;
 	flex-wrap: wrap;
+
+	.project-card{
+		background-color: white;
+		border-radius: 20px;
+		padding: 10px;
+		box-shadow: 4px 4px 10px rgb(0 0 0 / 25%);
+
+		.project-card-inner{
+
+			.project-card-img{
+				border-radius: 20px;
+			}
+
+			.project-card-info{
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 0 10px;
+
+				.project-title{
+
+				}
+
+				.project-description{
+
+				}
+
+				.project-card-arrow{
+					width: 0;
+					height: 0;
+					border-top: 18px solid transparent;
+					border-left: 16px solid #BA5624;
+					border-bottom: 18px solid transparent;
+				}
+
+			}
+
+		}
+
+
+	}
+
 }

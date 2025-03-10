@@ -12,5 +12,27 @@
   display: flex;
   flex-wrap: wrap;
 }
+.wp-block-kn-project-list .project-card {
+  background-color: white;
+  border-radius: 20px;
+  padding: 10px;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
+}
+.wp-block-kn-project-list .project-card .project-card-inner .project-card-img {
+  border-radius: 20px;
+}
+.wp-block-kn-project-list .project-card .project-card-inner .project-card-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+.wp-block-kn-project-list .project-card .project-card-inner .project-card-info .project-card-arrow {
+  width: 0;
+  height: 0;
+  border-top: 18px solid transparent;
+  border-left: 16px solid #BA5624;
+  border-bottom: 18px solid transparent;
+}
 
 /*# sourceMappingURL=style-index.css.map*/
