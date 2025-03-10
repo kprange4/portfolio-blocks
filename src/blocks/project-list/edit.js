@@ -36,12 +36,11 @@ export default function Edit({attributes, setAttributes}) {
 	return (
 		<div {...useBlockProps()}>
 			<BlockSettings attributes={attributes} setAttributes={setAttributes}/>
-			<div className="project-card">
+			<a className="project-link" href="#">
+			<div className="project-card" style={{backgroundColor: attributes.cardColor}}>
 				<div className="project-card-inner">
-					<div>
-						<img className="project-card-img" src="https://placehold.co/280x140"/>
-					</div>
-					<div className="project-card-info" style={{backgroundColor: attributes.cardColor}}>
+					<img className="project-card-img" src="https://placehold.co/280x140"/>
+					<div className="project-card-info">
 						<div>
 							<h3 className="project-title" style={{color: attributes.headingColor}}>Project Name</h3>
 							<div className="project-description" style={{color: attributes.textColor}}>Short
@@ -53,6 +52,7 @@ export default function Edit({attributes, setAttributes}) {
 
 				</div>
 			</div>
+			</a>
 			<ServerSideRender
 				block={metadata.name}
 				attributes={attributes}

@@ -7,27 +7,29 @@
 
 // TODO: add pagination
 $query = new WP_Query([
-	'post_type' => 'staff',
+	'post_type' => 'project',
 	'orderby' => 'title',
 	'order' => 'ASC',
 ]);
 ?>
 
 <div <?php echo get_block_wrapper_attributes(); ?>>
-	<?php while( $query->have_posts() ) : $query->the_post(); ?>
-		<div class="flip-card">
-			<div class="flip-card-inner">
-				<div class="flip-card-front">
-					<?= get_the_post_thumbnail(); ?>
-				</div>
-				<div class="flip-card-back" style="background-color: <?= $attributes['cardColor'] ?>">
-					<h3 class="name" style="color: <?= $attributes['headingColor'] ?>"><?= get_the_title() ?></h3>
-					<div class="position" style="color: <?= $attributes['textColor'] ?>"><?= get_post_meta(get_the_ID(), 'staff_position', true) ?></div>
-					<div class="bio" style="color: <?= $attributes['textColor'] ?>">
-						<p><?= get_post_meta(get_the_ID(), 'staff_bio', true) ?></p>
+	<?php while ($query->have_posts()) : $query->the_post(); ?>
+	<a class="project-link" href="<?= get_post_meta(get_the_ID(), 'project_link', true) ?>">
+		<div class="project-card" style="background-color: <?= $attributes['cardColor'] ?>">
+			<div class="project-card-inner">
+				<img class="project-card-img" src="<?= get_the_post_thumbnail_url(); ?>"/>
+				<div class="project-card-info">
+					<div>
+						<h3 class="project-title"
+							style="color: <?= $attributes['headingColor'] ?>"><?= get_the_title() ?></h3>
+						<div class="project-description"
+							 style="color: <?= $attributes['textColor'] ?>"><?= get_post_meta(get_the_ID(), 'project_short_description', true) ?></div>
 					</div>
+					<div class="project-card-arrow"></div>
 				</div>
 			</div>
 		</div>
+	</a>
 	<?php endwhile ?>
 </div>
