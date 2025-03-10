@@ -26,12 +26,16 @@
 		}
 	}
 
+	.project-link:focus{
+		outline-style: none;
+	}
+
 	.project-card{
 		background-color: white;
 		border-radius: 20px;
 		padding: 10px;
 		box-shadow: 4px 4px 10px rgb(0 0 0 / 25%);
-		margin: 0 10px;
+		margin: 0 10px 30px;
 
 		.project-card-inner{
 
@@ -39,6 +43,7 @@
 				border-radius: 20px;
 				width: 280px;
 				height: 140px;
+				background-size: cover;
 			}
 
 			.project-card-info{
@@ -48,11 +53,12 @@
 				padding: 0 10px;
 
 				.project-title{
-
+					font-size: 20px;
+					margin: 5px 0 5px 0;
 				}
 
 				.project-description{
-
+					font-size: 12px;
 				}
 
 				.project-card-arrow{

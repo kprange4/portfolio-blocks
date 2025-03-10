@@ -23,23 +23,34 @@
   transform: scale(1.05);
   transition: transform 0.3s ease;
 }
+.wp-block-kn-project-list .project-link:focus {
+  outline-style: none;
+}
 .wp-block-kn-project-list .project-card {
   background-color: white;
   border-radius: 20px;
   padding: 10px;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
-  margin: 0 10px;
+  margin: 0 10px 30px;
 }
 .wp-block-kn-project-list .project-card .project-card-inner .project-card-img {
   border-radius: 20px;
   width: 280px;
   height: 140px;
+  background-size: cover;
 }
 .wp-block-kn-project-list .project-card .project-card-inner .project-card-info {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 10px;
+}
+.wp-block-kn-project-list .project-card .project-card-inner .project-card-info .project-title {
+  font-size: 20px;
+  margin: 5px 0 5px 0;
+}
+.wp-block-kn-project-list .project-card .project-card-inner .project-card-info .project-description {
+  font-size: 12px;
 }
 .wp-block-kn-project-list .project-card .project-card-inner .project-card-info .project-card-arrow {
   width: 0;

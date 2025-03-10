@@ -39,7 +39,7 @@ export default function Edit({attributes, setAttributes}) {
 			<a className="project-link" href="#">
 			<div className="project-card" style={{backgroundColor: attributes.cardColor}}>
 				<div className="project-card-inner">
-					<img className="project-card-img" src="https://placehold.co/280x140"/>
+					<div className="project-card-img"></div>
 					<div className="project-card-info">
 						<div>
 							<h3 className="project-title" style={{color: attributes.headingColor}}>Project Name</h3>
