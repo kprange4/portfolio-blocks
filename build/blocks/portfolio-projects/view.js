@@ -58,7 +58,7 @@ function BlockApp(props) {
   let [projects, setProjects] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   let [filteredProjects, setFilteredProjects] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    fetch('/wp-json/wp/v2/project').then(response => response.json()).then(data => {
+    fetch('/wp-json/wp/v2/project?_embed').then(response => response.json()).then(data => {
       console.log(data);
       setProjects(data);
       setFilteredProjects(data);
@@ -145,7 +145,7 @@ function ProjectListItem({
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
           className: "project-card-img",
           style: {
-            backgroundImage: `url(${post._links?.['wp:featuredmedia']?.[0].href})`
+            backgroundImage: `url(${post._embedded?.['wp:featuredmedia']?.[0].source_url})`
           }
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
           className: "project-card-info",

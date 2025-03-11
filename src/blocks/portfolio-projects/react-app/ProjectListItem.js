@@ -6,7 +6,7 @@ export default function ProjectListItem({post}) {
 	<a className="project-link" href={post.acf.project_link}>
 		<div className="project-card">
 			<div className="project-card-inner">
-				<div className="project-card-img" style={{ backgroundImage: `url(${post._links?.['wp:featuredmedia']?.[0].href})` }}></div>
+				<div className="project-card-img" style={{ backgroundImage: `url(${post._embedded?.['wp:featuredmedia']?.[0].source_url})` }}></div>
 				<div className="project-card-info">
 					<div>
 						<h3 className="project-title">{post.title.rendered}</h3>

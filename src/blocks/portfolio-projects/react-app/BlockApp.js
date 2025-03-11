@@ -7,7 +7,7 @@ export default function BlockApp(props) {
 	let [filteredProjects, setFilteredProjects] = useState([]);
 
 	useEffect(() => {
-		fetch('/wp-json/wp/v2/project')
+		fetch('/wp-json/wp/v2/project?_embed')
 			.then(response => response.json())
 			.then(data => {
 				console.log(data);

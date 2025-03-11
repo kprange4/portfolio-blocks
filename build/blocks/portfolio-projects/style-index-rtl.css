@@ -51,6 +51,7 @@
   width: 280px;
   height: 140px;
   background-size: cover;
+  margin-bottom: 10px;
 }
 .wp-block-kn-portfolio-projects .project-card .project-card-inner .project-card-info {
   display: flex;
