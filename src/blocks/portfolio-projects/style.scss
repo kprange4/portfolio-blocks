@@ -6,7 +6,90 @@
  */
 
 .wp-block-kn-portfolio-projects {
-	background-color: #21759b;
-	color: #fff;
-	padding: 2px;
+	padding: 10px;
+	display: flex;
+	flex-wrap: wrap;
+
+	.project-search input {
+		width: 40%;
+		border-radius: 20px;
+		box-shadow: 4px 4px 10px rgb(0 0 0 / 25%);
+		border: none;
+		height: 40px;
+		margin-bottom: 20px;
+		padding: 20px;
+
+
+	}
+
+	.project-list {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	.project-link{
+		text-decoration: none;
+
+		.project-card{
+			transform: scale(1);
+			transition: transform 0.3s ease;
+		}
+	}
+
+	.project-link:hover{
+		.project-card{
+			transform: scale(1.05);
+			transition: transform 0.3s ease;
+		}
+	}
+
+	.project-link:focus{
+		outline-style: none;
+	}
+
+	.project-card{
+		background-color: white;
+		border-radius: 20px;
+		padding: 10px;
+		box-shadow: 4px 4px 10px rgb(0 0 0 / 25%);
+		margin: 0 10px 30px 0;
+
+		.project-card-inner{
+
+			.project-card-img{
+				border-radius: 20px;
+				width: 280px;
+				height: 140px;
+				background-size: cover;
+			}
+
+			.project-card-info{
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 0 10px;
+
+				.project-title{
+					font-size: 20px;
+					margin: 5px 0 5px 0;
+				}
+
+				.project-description{
+					font-size: 12px;
+				}
+
+				.project-card-arrow{
+					width: 0;
+					height: 0;
+					border-top: 18px solid transparent;
+					border-left: 16px solid #BA5624;
+					border-bottom: 18px solid transparent;
+				}
+
+			}
+
+		}
+
+
+	}
 }
