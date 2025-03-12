@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import ProjectList from './ProjectList';
 import SearchForm from './SearchForm'
+import FilterForm from "./FilterForm";
 
 export default function BlockApp(props) {
 	let [projects, setProjects] = useState([]);
@@ -26,7 +27,8 @@ export default function BlockApp(props) {
 	return (
 		<div>
 			<div>
-			<SearchForm filterProjects={filterProjects} />
+				<SearchForm filterProjects={filterProjects}/>
+				<FilterForm/>
 			</div>
 			<ProjectList posts={filteredProjects}/>
 		</div>

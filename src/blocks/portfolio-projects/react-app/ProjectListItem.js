@@ -1,7 +1,19 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import SkeletonProjectCard from "./SkeletonProjectCard";
 
 export default function ProjectListItem({post}) {
-	//console.log(post._links?.['wp:featuredmedia']?.[0].href)
+	const [isLoading, setIsLoading] = useState(true);
+
+	useEffect(() => {
+		setTimeout(() => {
+			setIsLoading(false);
+		}, 2000); // Simulating API delay
+	}, []);
+
+	if (isLoading) {
+		return <SkeletonProjectCard />;
+	}
+
 	return (
 	<a className="project-link" href={post.acf.project_link}>
 		<div className="project-card">
