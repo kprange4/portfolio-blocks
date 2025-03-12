@@ -17,10 +17,21 @@ export default function BlockApp(props) {
 			})
 	}, []); // <-- [] defines when the hook is run
 
-	function filterProjects(keyword) {
+	function filterProjects(keyword, category) {
+
 		const results = projects.filter(project => {
-			return project.title.rendered.toLowerCase().includes(keyword.toLowerCase());
+			console.log(project?.project_category?.[0])
+			const matchesKeyword = project.title.rendered
+				.toLowerCase()
+				.includes(keyword.toLowerCase());
+
+			const matchesCategory = category
+				? project?.project_category?.[0] === category
+				: true;
+
+			return matchesKeyword && matchesCategory; // Both conditions must be true
 		});
+
 		setFilteredProjects(results);
 	}
 
@@ -28,7 +39,7 @@ export default function BlockApp(props) {
 		<div>
 			<div>
 				<SearchForm filterProjects={filterProjects}/>
-				<FilterForm/>
+				<FilterForm filterProjects={filterProjects}/>
 			</div>
 			<ProjectList posts={filteredProjects}/>
 		</div>

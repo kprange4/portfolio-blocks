@@ -67,9 +67,12 @@ function BlockApp(props) {
     });
   }, []); // <-- [] defines when the hook is run
 
-  function filterProjects(keyword) {
+  function filterProjects(keyword, category) {
     const results = projects.filter(project => {
-      return project.title.rendered.toLowerCase().includes(keyword.toLowerCase());
+      console.log(project?.project_category?.[0]);
+      const matchesKeyword = project.title.rendered.toLowerCase().includes(keyword.toLowerCase());
+      const matchesCategory = category ? project?.project_category?.[0] === category : true;
+      return matchesKeyword && matchesCategory; // Both conditions must be true
     });
     setFilteredProjects(results);
   }
@@ -77,7 +80,9 @@ function BlockApp(props) {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_SearchForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
         filterProjects: filterProjects
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_FilterForm__WEBPACK_IMPORTED_MODULE_3__["default"], {})]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_FilterForm__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        filterProjects: filterProjects
+      })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProjectList__WEBPACK_IMPORTED_MODULE_1__["default"], {
       posts: filteredProjects
     })]
@@ -109,22 +114,27 @@ function FilterForm({
   filterProjects
 }) {
   let [category, setCategory] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)('');
+  console.log(category);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.SelectControl, {
+    className: "project-filter",
     label: "Filter Category:",
     value: category,
     options: [{
+      label: 'Select a Category',
+      value: ''
+    }, {
       label: 'Web Design',
-      value: 'web-design'
+      value: 2
     }, {
       label: 'Web Development',
-      value: 'web-development'
+      value: 3
     }, {
       label: 'Graphic Design',
-      value: 'graphic-design'
+      value: 1
     }],
     onChange: category => {
       setCategory(category);
-      filterProjects(keyword);
+      filterProjects(category);
     }
   });
 }
