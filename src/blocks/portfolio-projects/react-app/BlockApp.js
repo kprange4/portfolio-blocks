@@ -6,7 +6,7 @@ import ProjectPagination from "./ProjectPagination";
 
 export default function BlockApp(props) {
 	const [keyword, setKeyword] = useState('');
-	const [category, setCategory] = useState(0 ?? '');
+	const [category, setCategory] = useState('');
 	const [projects, setProjects] = useState([]);
 	const [filteredProjects, setFilteredProjects] = useState([]);
 	const [pagination, setPagination] = useState({});
@@ -16,6 +16,7 @@ export default function BlockApp(props) {
 			.then(response => response.json())
 			.then(data => {
 				console.log(data);
+				console.log(data[0]._embedded);
 				setProjects(data);
 				setFilteredProjects(data);
 			})
@@ -42,14 +43,18 @@ export default function BlockApp(props) {
 	// }
 
 	function filterProjects(keyword, category) {
-
 		const results = projects.filter(project => {
+			console.log(project?.project_category?.[0])
+			console.log(category)
+
 
 			console.log('Filtering with:', { keyword, category })
-			const matchesKeyword = project.title.rendered.toLowerCase().includes(keyword.toLowerCase());
+			const matchesKeyword = keyword
+				? project.title.rendered.toLowerCase().includes(keyword.toLowerCase())
+				: true;
 
 			const matchesCategory = category
-				? project?.project_category?.[0] === category
+				? project?.project_category?.[0] === parseInt(category)
 				: true;
 
 			return matchesKeyword && matchesCategory;
@@ -61,8 +66,8 @@ export default function BlockApp(props) {
 	return (
 		<div>
 			<div>
-				<SearchForm filterProjects={filterProjects} keyword={keyword} setKeyword={setKeyword} category={category}/>
-				<FilterForm filterProjects={filterProjects} category={category} setCategory={setCategory} keyword={keyword}/>
+				<SearchForm filterProjects={filterProjects} keyword={keyword} setKeyword={setKeyword}/>
+				<FilterForm filterProjects={filterProjects} category={category} setCategory={setCategory}/>
 			</div>
 			<ProjectList posts={filteredProjects}/>
 			{/*<ProjectPagination*/}

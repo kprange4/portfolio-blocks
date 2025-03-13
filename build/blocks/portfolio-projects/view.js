@@ -59,15 +59,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function BlockApp(props) {
-  var _;
   const [keyword, setKeyword] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
-  const [category, setCategory] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)((_ = 0) !== null && _ !== void 0 ? _ : '');
+  const [category, setCategory] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
   const [projects, setProjects] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   const [filteredProjects, setFilteredProjects] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   const [pagination, setPagination] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     fetch('/wp-json/wp/v2/project?_embed').then(response => response.json()).then(data => {
       console.log(data);
+      console.log(data[0]._embedded);
       setProjects(data);
       setFilteredProjects(data);
     });
@@ -95,12 +95,14 @@ function BlockApp(props) {
 
   function filterProjects(keyword, category) {
     const results = projects.filter(project => {
+      console.log(project?.project_category?.[0]);
+      console.log(category);
       console.log('Filtering with:', {
         keyword,
         category
       });
-      const matchesKeyword = project.title.rendered.toLowerCase().includes(keyword.toLowerCase());
-      const matchesCategory = category ? project?.project_category?.[0] === category : true;
+      const matchesKeyword = keyword ? project.title.rendered.toLowerCase().includes(keyword.toLowerCase()) : true;
+      const matchesCategory = category ? project?.project_category?.[0] === parseInt(category) : true;
       return matchesKeyword && matchesCategory;
     });
     setFilteredProjects(results);
@@ -110,13 +112,11 @@ function BlockApp(props) {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_SearchForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
         filterProjects: filterProjects,
         keyword: keyword,
-        setKeyword: setKeyword,
-        category: category
+        setKeyword: setKeyword
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_FilterForm__WEBPACK_IMPORTED_MODULE_3__["default"], {
         filterProjects: filterProjects,
         category: category,
-        setCategory: setCategory,
-        keyword: keyword
+        setCategory: setCategory
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_ProjectList__WEBPACK_IMPORTED_MODULE_1__["default"], {
       posts: filteredProjects
@@ -148,8 +148,7 @@ __webpack_require__.r(__webpack_exports__);
 function FilterForm({
   filterProjects,
   category,
-  setCategory,
-  keyword
+  setCategory
 }) {
   //console.log(category);
 
@@ -162,17 +161,17 @@ function FilterForm({
       value: ''
     }, {
       label: 'Web Design',
-      value: 3
+      value: '3'
     }, {
       label: 'Web Development',
-      value: 2
+      value: '2'
     }, {
       label: 'Graphic Design',
-      value: 1
+      value: '1'
     }],
     onChange: category => {
-      setCategory(Number(category));
-      filterProjects(keyword, category);
+      setCategory(category);
+      filterProjects('', category);
     }
   });
 }
@@ -382,8 +381,7 @@ __webpack_require__.r(__webpack_exports__);
 function SearchForm({
   filterProjects,
   keyword,
-  setKeyword,
-  category
+  setKeyword
 }) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.TextControl, {
     className: "project-search",
@@ -391,7 +389,7 @@ function SearchForm({
     value: keyword,
     onChange: keyword => {
       setKeyword(keyword);
-      filterProjects(keyword, category);
+      filterProjects(keyword);
     }
   });
 }
