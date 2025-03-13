@@ -49,16 +49,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ProjectList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProjectList */ "./src/blocks/portfolio-projects/react-app/ProjectList.js");
 /* harmony import */ var _SearchForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SearchForm */ "./src/blocks/portfolio-projects/react-app/SearchForm.js");
 /* harmony import */ var _FilterForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./FilterForm */ "./src/blocks/portfolio-projects/react-app/FilterForm.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _ProjectPagination__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ProjectPagination */ "./src/blocks/portfolio-projects/react-app/ProjectPagination.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__);
+
 
 
 
 
 
 function BlockApp(props) {
-  let [projects, setProjects] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
-  let [filteredProjects, setFilteredProjects] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  var _;
+  const [keyword, setKeyword] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
+  const [category, setCategory] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)((_ = 0) !== null && _ !== void 0 ? _ : '');
+  const [projects, setProjects] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  const [filteredProjects, setFilteredProjects] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  const [pagination, setPagination] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({});
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     fetch('/wp-json/wp/v2/project?_embed').then(response => response.json()).then(data => {
       console.log(data);
@@ -67,23 +73,52 @@ function BlockApp(props) {
     });
   }, []); // <-- [] defines when the hook is run
 
+  // useEffect(() => {
+  // 	// only do this once the API client is ready
+  // 	wp.api.loadPromise.done(function() {
+  // 		getProjects();
+  // 	});
+  // }, []);
+  //
+  // function getProjects(page = 1) {
+  // 	const projectsCollection = new wp.api.collections.Project();
+  // 	projectsCollection
+  // 		.fetch({data: {per_page: 2, page: page}})
+  // 		.done(data => {
+  // 			console.log(data,projectsCollection.models);
+  // 			console.log(projectsCollection)
+  // 			// store a COPY of the models in the app
+  // 			setProjects([...projectsCollection.models]);
+  // 			setPagination({...projectsCollection.state})
+  // 		});
+  // }
+
   function filterProjects(keyword, category) {
     const results = projects.filter(project => {
-      console.log(project?.project_category?.[0]);
+      console.log('Filtering with:', {
+        keyword,
+        category
+      });
       const matchesKeyword = project.title.rendered.toLowerCase().includes(keyword.toLowerCase());
       const matchesCategory = category ? project?.project_category?.[0] === category : true;
-      return matchesKeyword && matchesCategory; // Both conditions must be true
+      return matchesKeyword && matchesCategory;
     });
     setFilteredProjects(results);
   }
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_SearchForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        filterProjects: filterProjects
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_FilterForm__WEBPACK_IMPORTED_MODULE_3__["default"], {
-        filterProjects: filterProjects
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_SearchForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        filterProjects: filterProjects,
+        keyword: keyword,
+        setKeyword: setKeyword,
+        category: category
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_FilterForm__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        filterProjects: filterProjects,
+        category: category,
+        setCategory: setCategory,
+        keyword: keyword
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProjectList__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_ProjectList__WEBPACK_IMPORTED_MODULE_1__["default"], {
       posts: filteredProjects
     })]
   });
@@ -111,10 +146,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function FilterForm({
-  filterProjects
+  filterProjects,
+  category,
+  setCategory,
+  keyword
 }) {
-  let [category, setCategory] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)('');
-  console.log(category);
+  //console.log(category);
+
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.SelectControl, {
     className: "project-filter",
     label: "Filter Category:",
@@ -124,17 +162,17 @@ function FilterForm({
       value: ''
     }, {
       label: 'Web Design',
-      value: 2
+      value: 3
     }, {
       label: 'Web Development',
-      value: 3
+      value: 2
     }, {
       label: 'Graphic Design',
       value: 1
     }],
     onChange: category => {
-      setCategory(category);
-      filterProjects(category);
+      setCategory(Number(category));
+      filterProjects(keyword, category);
     }
   });
 }
@@ -167,7 +205,18 @@ function ProjectList({
     children: posts.map(post => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_ProjectListItem__WEBPACK_IMPORTED_MODULE_1__["default"], {
       post: post
     }, post.id))
-  });
+  })
+  // <div className="project-list">
+  // 	{projects.map(project => (
+  // 		<ProjectListItem
+  // 			link={project.attributes.acf.project_link}
+  // 			image={project.attributes._embedded?.['wp:featuredmedia']?.[0].source_url}
+  // 			title={project.attributes.title.rendered}
+  // 			description={project.attributes._embedded?.['wp:featuredmedia']?.[0].source_url}
+  // 			key={project.id}/>
+  // 	))}
+  // </div>
+  ;
 }
 
 /***/ }),
@@ -193,6 +242,7 @@ __webpack_require__.r(__webpack_exports__);
 function ProjectListItem({
   post
 }) {
+  // {link, image, title, description}
   const [isLoading, setIsLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     setTimeout(() => {
@@ -230,6 +280,81 @@ function ProjectListItem({
         })]
       })
     })
+  })
+  // <a className="project-link" href={link}>
+  // 	<div className="project-card">
+  // 		<div className="project-card-inner">
+  // 			<div className="project-card-img" style={{backgroundImage: `url(${image})`}}></div>
+  // 			<div className="project-card-info">
+  // 				<div>
+  // 					<h3 className="project-title">{title}</h3>
+  // 					<div className="project-description">{description}</div>
+  // 				</div>
+  // 				<div className="project-card-arrow"></div>
+  // 			</div>
+  // 		</div>
+  // 	</div>
+  // </a>
+  ;
+}
+
+/***/ }),
+
+/***/ "./src/blocks/portfolio-projects/react-app/ProjectPagination.js":
+/*!**********************************************************************!*\
+  !*** ./src/blocks/portfolio-projects/react-app/ProjectPagination.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ProjectPagination)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function ProjectPagination({
+  currentPage,
+  totalPages,
+  setPage
+}) {
+  function previous() {
+    if (currentPage > 1) {
+      setPage(currentPage - 1);
+    }
+  }
+  function next() {
+    if (currentPage < totalPages) {
+      setPage(currentPage + 1);
+    }
+  }
+  function pageLinks() {
+    const pages = [];
+    for (let i = 1; i <= totalPages; i++) {
+      pages.push(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+        className: "wp-element-button" + (i === currentPage ? ' active' : ''),
+        onClick: () => setPage(i),
+        children: i
+      }, i));
+    }
+    return pages;
+  }
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    className: "pagination",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+      className: "wp-element-button",
+      onClick: previous,
+      disabled: currentPage <= 1,
+      children: "Prev"
+    }), pageLinks(), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+      className: "wp-element-button",
+      onClick: next,
+      disabled: currentPage >= totalPages,
+      children: "Next"
+    })]
   });
 }
 
@@ -255,16 +380,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function SearchForm({
-  filterProjects
+  filterProjects,
+  keyword,
+  setKeyword,
+  category
 }) {
-  let [keyword, setKeyword] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)('');
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.TextControl, {
     className: "project-search",
     label: "Search:",
     value: keyword,
     onChange: keyword => {
       setKeyword(keyword);
-      filterProjects(keyword);
+      filterProjects(keyword, category);
     }
   });
 }

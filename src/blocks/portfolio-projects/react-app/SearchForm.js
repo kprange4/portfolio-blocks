@@ -1,8 +1,7 @@
 import {TextControl} from "@wordpress/components";
 import React, {useEffect, useState} from "react";
 
-export default function SearchForm({filterProjects}) {
-	let [keyword, setKeyword] = useState('');
+export default function SearchForm({filterProjects, keyword, setKeyword, category}) {
 
 	return (
 		<TextControl
@@ -11,7 +10,7 @@ export default function SearchForm({filterProjects}) {
 			value={keyword}
 			onChange={(keyword) => {
 				setKeyword(keyword);
-				filterProjects(keyword)}}
+				filterProjects(keyword, category)}}
 		/>
 	)
 }

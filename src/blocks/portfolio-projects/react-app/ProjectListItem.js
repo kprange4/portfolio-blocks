@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import SkeletonProjectCard from "./SkeletonProjectCard";
 
 export default function ProjectListItem({post}) {
+	// {link, image, title, description}
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
@@ -15,19 +16,34 @@ export default function ProjectListItem({post}) {
 	}
 
 	return (
-	<a className="project-link" href={post.acf.project_link}>
-		<div className="project-card">
-			<div className="project-card-inner">
-				<div className="project-card-img" style={{ backgroundImage: `url(${post._embedded?.['wp:featuredmedia']?.[0].source_url})` }}></div>
-				<div className="project-card-info">
-					<div>
-						<h3 className="project-title">{post.title.rendered}</h3>
-						<div className="project-description">{post.acf.project_short_description}</div>
+		<a className="project-link" href={post.acf.project_link}>
+			<div className="project-card">
+				<div className="project-card-inner">
+					<div className="project-card-img"
+						 style={{backgroundImage: `url(${post._embedded?.['wp:featuredmedia']?.[0].source_url})`}}></div>
+					<div className="project-card-info">
+						<div>
+							<h3 className="project-title">{post.title.rendered}</h3>
+							<div className="project-description">{post.acf.project_short_description}</div>
+						</div>
+						<div className="project-card-arrow"></div>
 					</div>
-					<div className="project-card-arrow"></div>
 				</div>
 			</div>
-		</div>
-	</a>
+		</a>
+	// <a className="project-link" href={link}>
+	// 	<div className="project-card">
+	// 		<div className="project-card-inner">
+	// 			<div className="project-card-img" style={{backgroundImage: `url(${image})`}}></div>
+	// 			<div className="project-card-info">
+	// 				<div>
+	// 					<h3 className="project-title">{title}</h3>
+	// 					<div className="project-description">{description}</div>
+	// 				</div>
+	// 				<div className="project-card-arrow"></div>
+	// 			</div>
+	// 		</div>
+	// 	</div>
+	// </a>
 )
 }
